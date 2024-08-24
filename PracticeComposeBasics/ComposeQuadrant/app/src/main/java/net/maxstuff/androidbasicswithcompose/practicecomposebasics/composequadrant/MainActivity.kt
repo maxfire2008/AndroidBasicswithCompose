@@ -4,7 +4,10 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -19,9 +22,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             ComposeQuadrantTheme {
-                Scaffold( modifier = Modifier.fillMaxSize() ) { innerPadding ->
-                    Greeting(
-                        name = "Android",
+                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                    Quadrants(
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -31,17 +33,52 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
+fun Quadrant(title: String, description: String, modifier: Modifier = Modifier) {
     Text(
-        text = "Hello $name!",
-        modifier = modifier
+        title
     )
+}
+
+@Composable
+fun Quadrants(modifier: Modifier = Modifier) {
+    Row(
+        modifier = modifier.fillMaxWidth()
+    ) {
+        Column (
+            modifier = Modifier.weight(1f)
+        ) {
+            Quadrant(
+                title = "test",
+                description = "hellosafd",
+                modifier = Modifier.weight(1f)
+            )
+            Quadrant(
+                title = "test",
+                description = "hellosafd",
+                modifier = Modifier.weight(1f)
+            )
+        }
+        Column (
+            modifier = Modifier.weight(1f)
+        ) {
+            Quadrant(
+                title = "test",
+                description = "hellosafd",
+                modifier = Modifier.weight(1f)
+            )
+            Quadrant(
+                title = "test",
+                description = "hellosafd",
+                modifier = Modifier.weight(1f)
+            )
+        }
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+fun QuadrantsPreview() {
     ComposeQuadrantTheme {
-        Greeting("Android")
+        Quadrants()
     }
 }
