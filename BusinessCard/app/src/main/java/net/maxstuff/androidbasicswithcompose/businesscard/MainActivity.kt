@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,13 +17,16 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material3.Icon
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Menu
+import androidx.compose.material.icons.rounded.Phone
+import androidx.compose.material.icons.rounded.Email
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -51,11 +55,12 @@ class MainActivity : ComponentActivity() {
 fun BusinessCard(modifier: Modifier = Modifier) {
     val image = painterResource(R.drawable.pfp)
     Box(
-        modifier = modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize(),
     ) {
         Column(
+            verticalArrangement = Arrangement.Center,
             modifier = Modifier
-                .align(Alignment.Center)
+                .fillMaxSize()
         ) {
             Image(
                 painter = image,
@@ -66,15 +71,15 @@ fun BusinessCard(modifier: Modifier = Modifier) {
                     .fillMaxWidth()
             )
             Text(
-                "Full Name",
+                stringResource(R.string.full_name),
                 fontSize = 50.sp,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
-                    .padding(top=20.dp, bottom=1.dp)
+                    .padding(top = 20.dp, bottom = 1.dp)
                     .fillMaxWidth(),
             )
             Text(
-                "Title",
+                stringResource(R.string.job_title),
                 fontSize = 24.sp,
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Bold,
@@ -83,13 +88,38 @@ fun BusinessCard(modifier: Modifier = Modifier) {
             )
         }
         Column(
+            verticalArrangement = Arrangement.Bottom,
             modifier = Modifier
-                .align(Alignment.Center)
+                .fillMaxSize()
+                .padding(bottom = 50.dp)
         ) {
-            Row {
-                Icon(Icons.Rounded.Menu, contentDescription = "Localized description")
-            }
+            ContactMethod(
+                icon = Icons.Rounded.Phone,
+                methodName = "Phone",
+                methodValue = "+1 (555) 321 503"
+            )
+            ContactMethod(
+                icon = Icons.Rounded.Email,
+                methodName = "Email",
+                methodValue = "john@example.com"
+            )
         }
+    }
+}
+
+@Composable
+private fun ContactMethod(icon: ImageVector, methodName: String, methodValue: String) {
+    Row(
+        horizontalArrangement = Arrangement.Center,
+        modifier = Modifier
+            .fillMaxWidth()
+    ) {
+        Icon(
+            icon,
+            contentDescription = methodName,
+            modifier = Modifier.padding(start = 50.dp, end = 10.dp)
+        )
+        Text(methodValue, modifier = Modifier.width(200.dp))
     }
 }
 
